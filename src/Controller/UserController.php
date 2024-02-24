@@ -22,7 +22,7 @@ class UserController extends AbstractController
 
     public function index(Request $request, UserResponse $response): Response
     {
-        return $response->createResponse(
+        return $response->sendResponse(
             user: $this->userService->index(),
             responseType: $request->headers->get('Accept')
         );
@@ -33,7 +33,7 @@ class UserController extends AbstractController
      */
     public function show(int $id, Request $request, UserResponse $response): Response
     {
-        return $response->createResponse(
+        return $response->sendResponse(
             user: $this->userService->show($id),
             responseType: $request->headers->get('Accept')
         );
@@ -54,8 +54,9 @@ class UserController extends AbstractController
             $requestData['password']
         );
 
-        return $response->createResponse(
+        return $response->sendResponse(
             user: $user,
+            responseCode: Response::HTTP_CREATED,
             responseType: $request->headers->get('Accept')
         );
     }
