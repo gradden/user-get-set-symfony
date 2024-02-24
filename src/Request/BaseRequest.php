@@ -7,19 +7,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BaseRequest
 {
     private RequestStack $request;
     private ValidatorInterface $validator;
+    private TranslatorInterface $translator;
 
     public function __construct(
-        ValidatorInterface $validator,
-        RequestStack       $request
+        ValidatorInterface  $validator,
+        RequestStack        $request,
+        TranslatorInterface $translator
     )
     {
         $this->request = $request;
         $this->validator = $validator;
+        $this->translator = $translator;
 
         $this->populate();
 
@@ -33,7 +37,7 @@ class BaseRequest
         $errors = $this->validator->validate($this);
 
         $message = [
-            'message' => 'validation_failed',
+            'message' => $this->translator->trans('errors.validation_failed'),
             'properties' => []
         ];
 

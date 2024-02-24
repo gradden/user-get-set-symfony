@@ -1,6 +1,8 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "description": "User getter and setter in Symfony",
+    "keywords": ["symfony", "framework", "user", "get", "set", "api"],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
